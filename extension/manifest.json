@@ -1,0 +1,62 @@
+{
+  "manifest_version": 2,
+  "name": "Carbon for old reddit",
+  "version": "4.0.0",
+  "description": "A clean, modern theme for old reddit with a quiet dark and light palette, filters, keyboard shortcuts, new-comment marks and infinite scroll. Old reddit stays old reddit.",
+  "author": "Abdur-Rahman; theme by /u/ggitaliano and brian6932",
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "carbon-old-reddit@abdur-rahman",
+      "strict_min_version": "128.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "permissions": [
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "*://*.reddit.com/*"
+  ],
+  "background": {
+    "scripts": [
+      "settings.js",
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://old.reddit.com/*",
+        "*://www.reddit.com/*",
+        "*://np.reddit.com/*",
+        "*://reddit.com/*"
+      ],
+      "css": [
+        "carbon.css",
+        "features.css"
+      ],
+      "js": [
+        "settings.js",
+        "content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icons/icon.svg",
+    "default_title": "Carbon settings",
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "popup.html"
+  }
+}

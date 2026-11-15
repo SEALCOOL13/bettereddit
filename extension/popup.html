@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carbon settings</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<form id="settings" autocomplete="off">
+
+  <header class="top">
+    <svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19v-6H5l7-8 7 8h-4v6z"/></svg>
+    <h1>Carbon</h1>
+    <span class="sub">for old reddit</span>
+  </header>
+
+  <section>
+    <h2>Look</h2>
+
+    <fieldset class="segmented" aria-label="Theme">
+      <label><input type="radio" name="theme" value="dark"><span>Carbon</span></label>
+      <label><input type="radio" name="theme" value="light"><span>Paper</span></label>
+      <label><input type="radio" name="theme" value="auto"><span>System</span></label>
+    </fieldset>
+
+    <div class="row">
+      <label for="accent">Accent</label>
+      <div class="pair">
+        <input type="color" id="accent" name="accent">
+        <button type="button" class="ghost" data-reset="accent">Default</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="link">Links</label>
+      <div class="pair">
+        <input type="color" id="link" name="link">
+        <button type="button" class="ghost" data-reset="link">Default</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="font">Font</label>
+      <select id="font" name="font">
+        <option value="inter">Inter</option>
+        <option value="system">System font</option>
+        <option value="verdana">Verdana, like classic reddit</option>
+        <option value="custom">Custom…</option>
+      </select>
+    </div>
+
+    <div class="row" id="fontCustomRow">
+      <label for="fontCustom">Font name</label>
+      <input type="text" id="fontCustom" name="fontCustom" list="fonts" placeholder="Any installed font" spellcheck="false">
+    </div>
+
+    <div class="row">
+      <label for="monoCustom">Code font</label>
+      <input type="text" id="monoCustom" name="monoCustom" list="monofonts" placeholder="JetBrains Mono" spellcheck="false">
+    </div>
+
+    <p class="preview" id="preview">The quick brown fox, 1,284 points · <code>uname -r</code></p>
+
+    <div class="row">
+      <label for="textSize">Text size</label>
+      <div class="pair">
+        <input type="range" id="textSize" name="textSize" min="12" max="20" step="1">
+        <output for="textSize" id="textSizeOut"></output>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="lineHeight">Line height</label>
+      <div class="pair">
+        <input type="range" id="lineHeight" name="lineHeight" min="1.3" max="1.9" step="0.05">
+        <output for="lineHeight" id="lineHeightOut"></output>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="density">Post list</label>
+      <select id="density" name="density">
+        <option value="comfortable">Comfortable</option>
+        <option value="compact">Compact</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="flairStyle">Flair</label>
+      <select id="flairStyle" name="flairStyle">
+        <option value="edge">Neutral, with a color edge</option>
+        <option value="full">Subreddit colors</option>
+        <option value="hide">Hidden</option>
+      </select>
+    </div>
+  </section>
+
+  <section>
+    <h2>Reading</h2>
+    <label class="switch"><input type="checkbox" name="newComments"><span>Mark comments posted since your last visit</span></label>
+    <label class="switch"><input type="checkbox" name="commentNav"><span>Comment navigator in the corner</span></label>
+    <label class="switch"><input type="checkbox" name="lineCollapse"><span>Click a thread line to collapse it</span></label>
+    <label class="switch"><input type="checkbox" name="threadLines"><span>Color thread lines by depth</span></label>
+    <label class="switch"><input type="checkbox" name="highlightOP"><span>Mark the post author's comments</span></label>
+    <label class="switch"><input type="checkbox" name="highlightMods"><span>Mark mod and admin comments</span></label>
+    <label class="switch"><input type="checkbox" name="bigCollapse"><span>Bigger [–] buttons</span></label>
+    <label class="switch"><input type="checkbox" name="fullWidthText"><span>Let text use the full width</span></label>
+    <label class="switch"><input type="checkbox" name="largeMedia"><span>Bigger images and videos</span></label>
+    <label class="switch"><input type="checkbox" name="dimVisited"><span>Dim posts you've opened</span></label>
+    <label class="switch"><input type="checkbox" name="blurNsfw"><span>Blur NSFW and spoiler thumbnails</span></label>
+    <label class="switch"><input type="checkbox" name="collapseAutomod"><span>Fold AutoModerator comments</span></label>
+    <label class="switch"><input type="checkbox" name="absoluteTime"><span>Show exact dates instead of "3 hours ago"</span></label>
+    <label class="switch"><input type="checkbox" name="infiniteScroll"><span>Load the next page as you scroll</span></label>
+    <label class="switch"><input type="checkbox" name="expandAllButton"><span>Expand-all-media button on listings</span></label>
+  </section>
+
+  <section>
+    <h2>Keyboard</h2>
+    <label class="switch"><input type="checkbox" name="keyboardNav"><span>Keyboard shortcuts</span></label>
+    <p class="hint"><kbd>j</kbd> <kbd>k</kbd> move, <kbd>o</kbd> open, <kbd>c</kbd> comments, <kbd>x</kbd> expand or fold, <kbd>a</kbd> <kbd>z</kbd> vote, <kbd>s</kbd> save, <kbd>?</kbd> full list. Turns itself off when RES is installed.</p>
+  </section>
+
+  <section>
+    <h2>Filters</h2>
+    <p class="hint">One per line, or separated by commas. Filters apply to listings like your front page and r/all, never to the subreddit you're looking at.</p>
+    <label class="field" for="filterSubs">Subreddits</label>
+    <textarea id="filterSubs" name="filterSubs" rows="2" placeholder="politics&#10;funny" spellcheck="false"></textarea>
+    <label class="field" for="filterDomains">Websites</label>
+    <textarea id="filterDomains" name="filterDomains" rows="2" placeholder="twitter.com" spellcheck="false"></textarea>
+    <label class="field" for="filterWords">Words in titles</label>
+    <textarea id="filterWords" name="filterWords" rows="2" placeholder="spoiler" spellcheck="false"></textarea>
+    <label class="field" for="filterUsers">Users</label>
+    <textarea id="filterUsers" name="filterUsers" rows="2" placeholder="some_username" spellcheck="false"></textarea>
+    <label class="switch"><input type="checkbox" name="filterComments"><span>Also fold comments from these users</span></label>
+  </section>
+
+  <section>
+    <h2>Page</h2>
+    <label class="switch"><input type="checkbox" name="headerTools"><span>Sidebar and theme buttons in the header</span></label>
+    <label class="switch"><input type="checkbox" name="hideSidebar"><span>Hide the sidebar</span></label>
+    <label class="switch"><input type="checkbox" name="hideSideOnComments"><span>Hide the sidebar on comment pages</span></label>
+    <label class="switch"><input type="checkbox" name="stickyHeader"><span>Keep the header on screen</span></label>
+    <label class="switch"><input type="checkbox" name="hideSrBar"><span>Hide the subreddit shortcut bar</span></label>
+    <label class="switch"><input type="checkbox" name="showOnline"><span>Always show "users here now"</span></label>
+    <label class="switch"><input type="checkbox" name="customScrollbar"><span>Thin scrollbars</span></label>
+    <label class="switch"><input type="checkbox" name="accountIcons"><span>Icons for messages, chat and mod mail</span></label>
+  </section>
+
+  <section>
+    <h2>Clutter</h2>
+    <label class="switch"><input type="checkbox" name="hideAds"><span>Hide promoted posts and ads</span></label>
+    <label class="switch"><input type="checkbox" name="hideUpsells"><span>Hide Premium, app and redesign banners</span></label>
+    <label class="switch"><input type="checkbox" name="hideAwards"><span>Hide awards</span></label>
+  </section>
+
+  <section>
+    <h2>Reddit</h2>
+    <label class="switch"><input type="checkbox" name="redirectOld"><span>Open www.reddit.com links on old reddit</span></label>
+    <label class="switch"><input type="checkbox" name="cleanLinks"><span>Open outside links directly, without reddit's click tracking</span></label>
+  </section>
+
+  <footer>
+    <button type="button" id="reset" class="ghost">Reset all</button>
+    <span class="saved" id="saved" aria-live="polite"></span>
+  </footer>
+
+  <datalist id="fonts">
+    <option value="Inter"><option value="Segoe UI"><option value="Roboto"><option value="Noto Sans">
+    <option value="Ubuntu"><option value="Cantarell"><option value="Fira Sans"><option value="Source Sans 3">
+    <option value="Atkinson Hyperlegible"><option value="Lexend"><option value="Georgia"><option value="Charter">
+    <option value="Literata"><option value="Merriweather">
+  </datalist>
+  <datalist id="monofonts">
+    <option value="JetBrains Mono"><option value="Cascadia Code"><option value="Fira Code">
+    <option value="Source Code Pro"><option value="Ubuntu Mono"><option value="Consolas"><option value="DejaVu Sans Mono">
+  </datalist>
+</form>
+<script src="settings.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
