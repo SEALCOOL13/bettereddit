@@ -7045,6 +7045,9 @@ html.cb-on-showOnline .titlebox .users-online:after {
 html.cb-on-hideSideOnComments .comments-page > .side {
   display: none !important;
 }
+html.cb-on-hideSideOnHome body.listing-page:not(:has(.redditname)) .side {
+  display: none !important;
+}
 html:not(.cb-off-bigCollapse) .comment .tagline a.expand {
   display: inline-block;
   min-width: 20px;
