@@ -7,7 +7,7 @@ head, body = src.split('==/UserStyle== */', 1)
 
 # options that default ON are switched off with html.cb-off-<name>; default OFF ones on with html.cb-on-<name>
 default_on = {'customScrollbar','fullWidthText','hideAds','hideUpsells','highlightOP','highlightMods','largeMedia','bigCollapse'}
-default_off = {'hideAwards','threadLines','blurNsfw','dimVisited','stickyHeader','hideSrBar','showOnline','hideSideOnComments','hideSideOnHome'}
+default_off = {'hideAwards','threadLines','blurNsfw','dimVisited','stickyHeader','hideSrBar','showOnline','hideSideOnComments','hideSideOnHome','hideSideOnSubs'}
 
 # 1. stylus option variables -> CSS variables
 pre = '''cAccent = #ff4500

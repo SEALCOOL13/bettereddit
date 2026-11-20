@@ -39,6 +39,7 @@
 @var checkbox showOnline     "Always show the 'users here now' count"             0
 @var checkbox hideSideOnComments "Hide the sidebar on comment pages"              0
 @var checkbox hideSideOnHome "Hide the sidebar on the front page"                  0
+@var checkbox hideSideOnSubs "Hide the sidebar on subreddit main pages (hot, new, top)" 0
 @var checkbox bigCollapse    "Bigger [–] buttons for collapsing comments"         1
 @var checkbox customScrollbar "Thin dark scrollbars"                              1
 @var checkbox accountIcons   "Icons for messages, notifications, chat and mod mail" 1
@@ -8389,6 +8390,14 @@ iShield   = url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%2
        the front page does not, so it's the only listing without one. */
     if hideSideOnHome == 1 {
         body.listing-page:not(:has(.redditname)) .side {
+            display: none !important;
+        }
+    }
+
+    /* ---- hide sidebar on subreddit main pages ----
+       Listing pages that do have a subreddit name (r/x/hot, /new, /top). */
+    if hideSideOnSubs == 1 {
+        body.listing-page:has(.redditname) .side {
             display: none !important;
         }
     }
