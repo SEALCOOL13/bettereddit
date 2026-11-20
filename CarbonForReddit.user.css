@@ -18,7 +18,7 @@
 @var color    cVisited       "Visited post title color"                            #8e8e96
 @var select   fontStyle      "Font" {"Inter*": "0", "Your system font": "3", "Verdana, like classic reddit": "2", "Custom (name it below)": "4"}
 @var text     customFont     "Custom font name, any font installed on your computer" "Fira Sans"
-@var text     customMono     "Code font (leave empty for the default)" ""
+@var text     customMono     "Code font name, or leave as 'default' to use the site's own" "default"
 @var select   flairStyle     "Post and user flair" {"Neutral chip with the subreddit color as an edge*": "edge", "Full subreddit colors": "full", "Hidden": "hide"}
 @var select   density        "Post list spacing" {"Comfortable*": "comfortable", "Compact": "compact"}
 @var number   mdFontSize     "Post and comment text size"     [14, 10, 24, 1, "px"]
@@ -59,7 +59,7 @@ fsel = '' + fontStyle
 themeS = '' + theme
 flairS = '' + flairStyle
 customFontS = '' + customFont
-customMonoS = '' + customMono
+customMonoS = ('' + customMono) == 'default' ? '' : '' + customMono
 /* Option selectors. The userstyle switches at compile time; the extension
    build compiles with the defaults and switches with classes on <html>. */
 flairFullSel = flairS == 'full' ? 'html:not(.cb-flair-edge)' : 'html.cb-flair-full'
