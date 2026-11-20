@@ -1,0 +1,305 @@
+/* Styles for the parts content.js adds. Uses the theme tokens from carbon.css. */
+
+/* ---- header tools: sidebar and theme buttons ---- */
+.cb-tools {
+    display: inline-flex;
+    gap: 4px;
+    margin-right: 12px;
+    vertical-align: middle;
+}
+
+.cb-tool,
+.cb-nav-btn {
+    appearance: none;
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: var(--cb-r, 8px);
+    background: transparent;
+    color: var(--cb-text-2, #a1a1a6);
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--cb-fast, 150ms) var(--cb-ease, ease-out),
+        color var(--cb-fast, 150ms) var(--cb-ease, ease-out),
+        border-color var(--cb-fast, 150ms) var(--cb-ease, ease-out);
+}
+
+.cb-tool:hover,
+.cb-tool.is-on {
+    background: var(--cb-raised-2, #2a2a2d);
+    color: var(--cb-text, #ededed);
+}
+
+.cb-tool:focus-visible,
+.cb-nav-btn:focus-visible {
+    outline: 2px solid var(--cb-link, #4b9fe1);
+    outline-offset: 1px;
+}
+
+.cb-tool svg,
+.cb-nav-btn svg {
+    display: block;
+}
+
+/* ---- hide the sidebar ---- */
+html.cb-hide-sidebar body > .side {
+    display: none !important;
+}
+
+html.cb-hide-sidebar body > .content {
+    margin-right: 8px !important;
+}
+
+/* ---- new comments since your last visit ---- */
+.thing.comment.cb-new > .entry {
+    box-shadow: inset 2px 0 0 var(--cb-accent, #ff4500);
+    padding-left: 8px;
+    margin-left: -10px;
+}
+
+.cb-new-tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 0 4px;
+    border-radius: var(--cb-r-sm, 4px);
+    background: color-mix(in srgb, var(--cb-accent, #ff4500) 16%, transparent);
+    color: var(--cb-accent, #ff4500);
+    font-family: var(--cb-mono, monospace);
+    font-size: 11px;
+    line-height: 16px;
+    vertical-align: 1px;
+}
+
+.cb-new-count {
+    margin-left: 12px;
+    color: var(--cb-muted, #85858b);
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* ---- comment navigator ---- */
+/* sits at the bottom right of the comment column, clear of the 340px sidebar */
+.cb-nav {
+    position: fixed;
+    right: 372px;
+    bottom: 24px;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid var(--cb-line, rgba(237, 237, 237, .08));
+    border-radius: 12px;
+    background: var(--cb-card, #19191b);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+}
+
+html.cb-hide-sidebar .cb-nav,
+html.cb-on-hideSideOnComments body.comments-page .cb-nav,
+body:not(:has(> .side)) .cb-nav {
+    right: 24px;
+}
+
+.cb-nav-btn:hover {
+    background: var(--cb-raised-2, #2a2a2d);
+    color: var(--cb-text, #ededed);
+}
+
+.cb-nav-btn[hidden] {
+    display: none;
+}
+
+.cb-nav-new {
+    position: relative;
+    color: var(--cb-accent, #ff4500);
+}
+
+.cb-nav-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+    background: var(--cb-accent, #ff4500);
+    color: var(--cb-on-color, #111113);
+    font-family: var(--cb-mono, monospace);
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+}
+
+/* a short highlight on the comment the navigator lands on */
+@keyframes cb-flash {
+    from { background-color: color-mix(in srgb, var(--cb-link, #4b9fe1) 14%, transparent); }
+    to   { background-color: transparent; }
+}
+
+.thing.cb-flash > .entry {
+    animation: cb-flash 900ms var(--cb-ease, ease-out) 1;
+    border-radius: var(--cb-r-sm, 4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .thing.cb-flash > .entry {
+        animation: none;
+    }
+}
+
+/* ---- click a thread line to collapse its comment ---- */
+html.cb-line-collapse .commentarea .comment > .child {
+    position: relative;
+}
+
+html.cb-line-collapse .commentarea .comment > .child::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -9px;
+    width: 18px;
+    cursor: pointer;
+    background: linear-gradient(to right, transparent 8px, transparent 8px 10px, transparent 10px);
+    border-radius: 4px;
+    transition: background-color var(--cb-fast, 150ms) var(--cb-ease, ease-out);
+}
+
+html.cb-line-collapse .commentarea .comment > .child:hover::before {
+    background: linear-gradient(to right, transparent 8px, var(--cb-line-2, rgba(237, 237, 237, .14)) 8px 10px, transparent 10px);
+}
+
+html.cb-line-collapse .commentarea .comment > .child:has(> .sitetable:hover)::before {
+    background: transparent;
+}
+
+/* print: no floating tools */
+@media print {
+    .cb-nav,
+    .cb-tools {
+        display: none !important;
+    }
+}
+
+/* ---- Filters ----------------------------------------------------- */
+html .thing.link.cb-filtered { display: none !important; }
+html.cb-show-filtered .thing.link.cb-filtered {
+    display: block !important;
+    opacity: .55;
+}
+html.cb-show-filtered .thing.link.cb-filtered::before {
+    content: attr(data-cb-reason);
+    display: block;
+    margin: 0 0 4px 0;
+    font-size: 11px;
+    color: var(--cb-muted, #85858b);
+}
+.cb-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 8px;
+    padding: 6px 12px;
+    border: 1px dashed var(--cb-line-2, #3a3a3f);
+    border-radius: var(--cb-r, 8px);
+    color: var(--cb-text-2, #a1a1a6);
+    font-size: 12px;
+}
+.cb-filter-bar button.cb-link-btn {
+    height: auto;
+    min-height: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--cb-link, #4b9fe1);
+    font: inherit;
+    cursor: pointer;
+}
+.cb-filter-bar button.cb-link-btn:hover { text-decoration: underline; }
+
+/* comments from filtered users: show only the header line */
+html .thing.comment.cb-filtered-comment > .entry > form,
+html .thing.comment.cb-filtered-comment > .entry > .flat-list,
+html .thing.comment.cb-filtered-comment > .child { display: none !important; }
+html .thing.comment.cb-filtered-comment > .entry .tagline::after {
+    content: "filtered";
+    margin-left: 6px;
+    color: var(--cb-muted, #85858b);
+}
+
+/* ---- Keyboard selection ------------------------------------------ */
+html .thing.cb-kb-active {
+    box-shadow: inset 3px 0 0 var(--cb-accent, #ff4500) !important;
+}
+html .thing.comment.cb-kb-active > .entry {
+    background: color-mix(in srgb, var(--cb-accent, #ff4500) 6%, transparent);
+    border-radius: var(--cb-r-sm, 4px);
+}
+.cb-help {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    display: grid;
+    place-content: center;
+    background: rgb(0 0 0 / .55);
+}
+.cb-help h2 {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cb-text, #ececee);
+}
+.cb-help dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    margin: 0;
+}
+.cb-help-panel {
+    width: 380px;
+    padding: 20px;
+    border: 1px solid var(--cb-line, #2a2a2e);
+    border-radius: 12px;
+    background: var(--cb-raised, #1c1c1f);
+    box-shadow: 0 12px 32px rgb(0 0 0 / .4);
+}
+.cb-help dt {
+    font: 12px/20px var(--cb-mono, ui-monospace, monospace);
+    color: var(--cb-text, #ececee);
+}
+.cb-help dd {
+    margin: 0;
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--cb-text-2, #a1a1a6);
+}
+
+/* ---- Infinite scroll --------------------------------------------- */
+.cb-page-marker {
+    display: flex;
+    padding: 0 12px;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0 8px;
+    color: var(--cb-muted, #85858b);
+    font-size: 12px;
+    font-weight: 500;
+}
+.cb-page-marker::after {
+    content: "";
+    flex: 1;
+    border-top: 1px solid var(--cb-line, #2a2a2e);
+}
+.nav-buttons.cb-loading { opacity: .5; pointer-events: none; }
+.nav-buttons[data-cb-error]::after {
+    content: attr(data-cb-error);
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--cb-warn, #e0a040);
+}
